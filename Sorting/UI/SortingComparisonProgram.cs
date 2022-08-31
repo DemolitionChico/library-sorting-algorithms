@@ -12,6 +12,7 @@ public class SortingComparisonProgram
         new GenericSolution("Bubble sort (shake sort)", array => array.ShakerSort()),
         new GenericSolution("Quick sort", array => array.QuickSort()),
         new GenericSolution("Heap sort", array => array.HeapSort()),
+        new GenericSolution("Merge sort", array => array.MergeSort()),
         new ComparingSolution()
     };
 
@@ -156,7 +157,8 @@ public class SortingComparisonProgram
             {"Bubble sort", array => array.BubbleSort()},
             {"Shake sort", array => array.ShakerSort()},
             {"Quick sort", array => array.QuickSort()},
-            {"Heap sort", array => array.HeapSort()}
+            {"Heap sort", array => array.HeapSort()},
+            {"Merge sort", array => array.MergeSort()}
         };
 
         public string Name => "Compare all";
@@ -173,15 +175,14 @@ public class SortingComparisonProgram
             for (int i = 0; i < keys.Length; i++)
             {
                 int[] tempArray = (int[]) array.Clone();
-                stopwatch.Restart();
-                options[keys[i]](tempArray);
-                stopwatch.Stop();
-                results[i] = stopwatch.ElapsedMilliseconds;
                 Console.Clear();
                 resultsLine = string.Format(headerFormat,
                     results.Select((x, j) => j < i ? $"{x} ms" : (j == i ? "processing" : "-")).ToArray());
                 Console.WriteLine(header);
                 Console.WriteLine(resultsLine);
+                stopwatch.Restart();
+                options[keys[i]](tempArray);
+                results[i] = stopwatch.ElapsedMilliseconds;
             }
 
             Console.Clear();
